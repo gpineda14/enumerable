@@ -1,22 +1,23 @@
 module Enumerable
   def my_each
+    return self.to_enum unless block_given?
     for val in self
       yield val
     end
-    self
   end
 
   def my_each_with_index
+    return self.to_enum unless block_given?
     size = self.length
     index = 0
     size.times {
       yield(self[index], index)
       index += 1
     }
-    self
   end
 
   def my_select
+    return self.to_enum unless block_given?
     arr = []
     self.my_each { |val|
       arr << val if yield val
@@ -25,6 +26,7 @@ module Enumerable
   end
 
   def my_all?
+    return self.to_enum unless block_given?
     self.my_each { |val|
       return false unless yield val
     }
@@ -32,6 +34,7 @@ module Enumerable
   end
 
   def my_any?
+    return self.to_enum unless block_given?
     self.my_each { |val|
       return true if yield val
     }
@@ -39,6 +42,7 @@ module Enumerable
   end
 
   def my_none?
+    return self.to_enum unless block_given?
     self.my_each { |val|
       return true unless yield val
     }
@@ -62,6 +66,7 @@ module Enumerable
   end
 
   def my_inject
+    return self.to_enum unless block_given?
     accumulator = self[0]
     size = self.my_count
     index = 1
